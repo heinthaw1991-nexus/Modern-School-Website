@@ -6,7 +6,7 @@
     <title>Apex International Academy</title>
     
     <!-- Browser Tab Bar School Logo (Favicon) -->
-    <link rel="icon" type="image/png" href="https://unsplash.com/photos/people-throwing-hats-on-air-_kd5cxwZOK4?auto=format&fit=crop&w=32&h=32&q=80">
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=32&h=32&q=80">
     
     <style>
         /* Modern CSS Variables */
@@ -130,7 +130,7 @@
             margin-top: 70px;
             min-height: 75vh;
             background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.7)), 
-                        url('https://unsplash.com/photos/people-throwing-hats-on-air-_kd5cxwZOK4?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+                        url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -176,10 +176,17 @@
             margin: 0 auto;
         }
 
-        section:nth-of-type(even) {
+        section:nth-of-type(even):not(.activities-shared) {
             background-color: var(--bg-light);
             max-width: 100%;
             padding: 5rem calc((100% - 1200px) / 2 + 2rem);
+        }
+
+        /* Target background override for our specific shared section layout alternating pattern */
+        .activities-shared {
+            background-color: var(--bg-light);
+            max-width: 100% !important;
+            padding: 5rem calc((100% - 1200px) / 2 + 2rem) !important;
         }
 
         .section-title {
@@ -240,6 +247,59 @@
         .card h3 {
             margin-bottom: 1rem;
             color: var(--primary);
+        }
+
+        /* FIXED RE-ENGINEERED COMPONENT GRID FOR MEDIA OBJECTS */
+        .video-grid, .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 900px) {
+            .video-grid, .image-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .video-item, .gallery-item {
+            text-align: center;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .video-item h3, .gallery-item h3 {
+            font-size: 1rem;
+            margin-top: 12px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Clean 16:9 box ratio rule */
+            height: 0;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
         }
 
         .contact-grid {
@@ -369,6 +429,7 @@
                         <li><a href="#about-en">About</a></li>
                         <li><a href="#academics-en">Academics</a></li>
                         <li><a href="#admissions-en">Admissions</a></li>
+                        <li><a href="#activities-shared">Activities</a></li>
                         <li><a href="#contact-en">Contact</a></li>
                     </ul>
                 </nav>
@@ -377,6 +438,7 @@
                         <li><a href="#about-my">ကျောင်းအကြောင်း</a></li>
                         <li><a href="#academics-my">ပညာရေး</a></li>
                         <li><a href="#admissions-my">အပ်နှံခြင်း</a></li>
+                        <li><a href="#activities-shared">လှုပ်ရှားမှုများ</a></li>
                         <li><a href="#contact-my">ဆက်သွယ်ရန်</a></li>
                     </ul>
                 </nav>
@@ -416,7 +478,7 @@
                     <p>Our faculty consists of certified education specialists committed to treating each student as an individual while cultivating their unique talents.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="Students in classroom">
+                    <img src="images/classroom.jpg" alt="Students in classroom" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80'">
                 </div>
             </div>
         </section>
@@ -458,35 +520,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Contact Section -->
-        <section id="contact-en">
-            <h2 class="section-title">Connect With Us</h2>
-            <div class="contact-grid">
-                <div>
-                    <div class="info-item">
-                        <strong>Campus Address</strong>
-                        <p>No. 456, Pyay Road, Kamayut Township, Yangon, Myanmar</p>
-                    </div>
-                    <div class="info-item">
-                        <strong>Direct Lines</strong>
-                        <p>Admissions: +95 9 777 123456<br>Main Desk: +95 9 777 789000</p>
-                    </div>
-                    <div class="info-item">
-                        <strong>Digital Inquiries</strong>
-                        <p>hello@apexacademy.edu</p>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form action="#" onsubmit="alert('Thank you for reaching out!'); return false;">
-                        <input type="text" placeholder="Your Full Name" required>
-                        <input type="email" placeholder="Your Email Address" required>
-                        <textarea rows="5" placeholder="How can we assist you with enrollment?" required></textarea>
-                        <button type="submit">Submit Inquiry</button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </div>
 
 
@@ -499,7 +532,7 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>ဉာဏ်ပညာစွမ်းပကား မြှင့်တင်လို့ အနာဂတ်ကို ထုဆစ်စို့</h1>
-                <p>Apex နိုင်ငံတကာအကယ်ဒမီကျောင်းမှ လှိုက်လှဲစွာ ကြိုဆိုပါ၏။ ကျွန်ုပ်တို့ကျောင်းသည် နွေးထွေးသော ပတ်ဝန်းကျင်ကောင်းတစ်ခုတွင် တီထွင်ဖန်တီးနိုင်စွမ်း၊ ဝေဖန်ပိုင်းခြားတွေးခေါ်နိုင်စွမ်းနှင့် ထူးချွန်သော ပညာရည်စွမ်းပကားများကို ပျိုးထောင်ပေးလျက်ရှိပါသည်။</p>
+                <p>Apex နိုင်ငံတကာအကယ်ဒမီကျောင်းမှ လှိုက်လှဲစွာ ကြိုဆိုပါ၏။ ကျွန်ုပ်တို့ကျောင်းသည် နွေးထွေးသော ပတ်ဝန်းကျင်ကောင်းတစ်ခုတွင် တီထွင်ဖန်တီးနိုင်စွမ်း, ဝေဖန်ပိုင်းခြားတွေးခေါ်နိုင်စွမ်းနှင့် ထူးချွန်သော ပညာရည်စွမ်းပကားများကို ပျိုးထောင်ပေးလျက်ရှိပါသည်။</p>
                 <a href="#contact-my" class="btn">ယခုပဲ ကျောင်းအပ်နှံလိုက်ပါ</a>
             </div>
         </section>
@@ -515,7 +548,7 @@
                     <p>ကျွန်ုပ်တို့၏ ဆရာ၊ ဆရာမများသည် အသိအမှတ်ပြု လက်မှတ်ရ ပညာရေးပညာရှင်များဖြစ်ကြပြီး ကျောင်းသားတစ်ဦးချင်းစီ၏ ထူးခြားသော ပါရမီနှင့် စွမ်းရည်များကို အလေးထား စင်တင်ပျိုးထောင်ပေးလျက်ရှိပါသည်။</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="Students in classroom">
+                    <img src="images/classroom.jpg" alt="Students in classroom" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80'">
                 </div>
             </div>
         </section>
@@ -557,15 +590,131 @@
                 </div>
             </div>
         </section>
+    </div>
 
-        <!-- Contact Section -->
+
+    <!-- ================================================================= -->
+    <!-- 3. SHARED MEDIA ACTIVITIES SECTION (DEDICATED VISIBILITY REGION) -->
+    <!-- ================================================================= -->
+    <section id="activities-shared" class="activities-shared">
+        <!-- English Heading Elements -->
+        <div class="media-title-en">
+            <h2 class="section-title">School Activities & Presentations</h2>
+        </div>
+        <!-- Myanmar Heading Elements -->
+        <div class="media-title-my" style="display: none;">
+            <h2 class="section-title">ကျောင်းတွင်းလှုပ်ရှားမှုများနှင့် တင်ဆက်မှုများ</h2>
+        </div>
+        
+        <!-- Row 1: Up to 3 Videos Side-By-Side Grid Frame -->
+        <div class="video-grid">
+            <div class="video-item">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Campus Highlights" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <h3 class="media-title-en">Science Lab Highlights</h3>
+                <h3 class="media-title-my" style="display: none;">သိပ္ပံလက်တွေ့ခန်းလှုပ်ရှားမှုများ</h3>
+            </div>
+
+            <div class="video-item">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/9bZkp7q19f0" 
+                        title="Sports Day" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <h3 class="media-title-en">Annual Sports Day</h3>
+                <h3 class="media-title-my" style="display: none;">နှစ်ပတ်လည် အားကစားပွဲတော်</h3>
+            </div>
+
+            <div class="video-item">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/kJQP7kiw5Fk" 
+                        title="Music Festival" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <h3 class="media-title-en">Campus Music Festival</h3>
+                <h3 class="media-title-my" style="display: none;">ကျောင်းတွင်း ဂီတဖျော်ဖြေပွဲ</h3>
+            </div>
+        </div>
+
+        <!-- Row 2: Up to 3 Photos Side-By-Side Grid Gallery -->
+        <div class="image-grid">
+            <div class="gallery-item">
+                <img src="images/1.jpg" alt="Classroom Group Work" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400'">
+                <h3 class="media-title-en">Classroom Group Work</h3>
+                <h3 class="media-title-my" style="display: none;">စာသင်ခန်းတွင်း စုပေါင်းလှုပ်ရှားမှု</h3>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/2.jpg" alt="Computer Lab" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?w=400'">
+                <h3 class="media-title-en">Computer Lab Session</h3>
+                <h3 class="media-title-my" style="display: none;">ကွန်ပျူတာလက်တွေ့လေ့လာချိန်</h3>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/3.jpg" alt="Art Session" onerror="this.src='https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400'">
+                <h3 class="media-title-en">Creative Arts Session</h3>
+                <h3 class="media-title-my" style="display: none;">ပန်းချီနှင့် တီထွင်ဖန်တီးမှုအချိန်</h3>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================= -->
+    <!-- 4. LANGUAGE LINKED CONTACT SECTION FOOTER REGIONS -->
+    <!-- ================================================================= -->
+    <div id="contact-region-en">
+        <section id="contact-en">
+            <h2 class="section-title">Connect With Us</h2>
+            <div class="contact-grid">
+                <div>
+                    <div class="info-item">
+                        <strong>Campus Address</strong>
+                        <p>No. 456, Pyay Road, Kamayut Township, Yangon, Myanmar</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>Direct Lines</strong>
+                        <p>Admissions: +95 9 777 123456<br>Main Desk: +95 9 777 789000</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>Digital Inquiries</strong>
+                        <p>hello@apexacademy.edu</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="#" onsubmit="alert('Thank you for reaching out!'); return false;">
+                        <input type="text" placeholder="Your Full Name" required>
+                        <input type="email" placeholder="Your Email Address" required>
+                        <textarea rows="5" placeholder="How can we assist you with enrollment?" required></textarea>
+                        <button type="submit">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="contact-region-my" style="display: none;">
         <section id="contact-my">
             <h2 class="section-title">ဆက်သွယ်ရန်</h2>
             <div class="contact-grid">
                 <div>
                     <div class="info-item">
                         <strong>ကျောင်းတည်နေရာ</strong>
-                        <p>အမှတ် (၄၅၆)၊ ပြည်လမ်း၊ ကမာရွတ်မြို့နယ်၊ ရန်ကုန်မြို့၊ မြန်မာနိုင်ငံ။</p>
+                        <p>အမှတ် (၄၅۶)၊ ပြည်လမ်း၊ ကမာရွတ်မြို့နယ်၊ ရန်ကုန်မြို့၊ မြန်မာနိုင်ငံ။</p>
                     </div>
                     <div class="info-item">
                         <strong>ဖုန်းနံပါတ်များ</strong>
@@ -600,23 +749,39 @@
         function toggleLanguage(lang) {
             const contentEn = document.getElementById('content-en');
             const contentMy = document.getElementById('content-my');
+            const contactEn = document.getElementById('contact-region-en');
+            const contactMy = document.getElementById('contact-region-my');
             const navEn = document.getElementById('nav-en');
             const navMy = document.getElementById('nav-my');
             const buttons = document.querySelectorAll('.lang-btn');
+            
+            // Shared multi-language subtitle objects selector
+            const mediaEn = document.querySelectorAll('.media-title-en');
+            const mediaMy = document.querySelectorAll('.media-title-my');
 
             if (lang === 'en') {
                 contentEn.style.display = 'block';
+                contactEn.style.display = 'block';
                 navEn.style.display = 'block';
                 contentMy.style.display = 'none';
+                contactMy.style.display = 'none';
                 navMy.style.display = 'none';
+                
+                mediaEn.forEach(el => el.style.display = 'block');
+                mediaMy.forEach(el => el.style.display = 'none');
                 
                 buttons[0].classList.add('active');
                 buttons[1].classList.remove('active');
             } else if (lang === 'my') {
                 contentMy.style.display = 'block';
+                contactMy.style.display = 'block';
                 navMy.style.display = 'block';
                 contentEn.style.display = 'none';
+                contactEn.style.display = 'none';
                 navEn.style.display = 'none';
+                
+                mediaEn.forEach(el => el.style.display = 'none');
+                mediaMy.forEach(el => el.style.display = 'block');
                 
                 buttons[0].classList.remove('active');
                 buttons[1].classList.add('active');

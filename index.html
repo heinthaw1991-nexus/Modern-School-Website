@@ -270,11 +270,15 @@
             padding: 1rem;
             border-radius: 8px;
             box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .video-item h3, .gallery-item h3 {
             font-size: 1rem;
             margin-top: 12px;
+            margin-bottom: 8px;
             color: var(--primary);
             font-weight: 600;
         }
@@ -295,12 +299,66 @@
             height: 100%;
         }
 
-        .gallery-item img {
+        /* Interactive Flashcard UI Extensions */
+        .flashcard-wrapper {
+            position: relative;
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            overflow: hidden;
             border-radius: 6px;
+            background-color: #f3f4f6;
         }
+
+        .flashcard-wrapper .slide-link {
+            display: none;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .flashcard-wrapper .slide-link.active {
+            display: block;
+        }
+
+        .flashcard-wrapper .slide-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+
+        /* Slight hover effect on images to signal they are clickable */
+        .flashcard-wrapper .slide-link:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Flashcard Inline Controls */
+        .card-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 58, 138, 0.75);
+            color: var(--white);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+            user-select: none;
+        }
+
+        .card-nav:hover {
+            background: var(--primary);
+        }
+
+        .card-nav.prev { left: 8px; }
+        .card-nav.next { right: 8px; }
 
         .contact-grid {
             display: grid;
@@ -478,7 +536,7 @@
                     <p>Our faculty consists of certified education specialists committed to treating each student as an individual while cultivating their unique talents.</p>
                 </div>
                 <div class="about-image">
-                    <img src="images/classroom.jpg" alt="Students in classroom" onerror="this.src='https://images.unsplash.com/photo-1581726707445-75cbe4efc586?q=80&w=1476&auto=format&fit=crop&w=600'">
+                    <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class02.jpg?q=80&w=1476&auto=format&fit=crop&w=600" alt="Students in classroom" onerror="this.src='https://images.unsplash.com/photo-1581726707445-75cbe4efc586?q=80&w=1476&auto=format&fit=crop&w=600'">
                 </div>
             </div>
         </section>
@@ -548,7 +606,7 @@
                     <p>ကျွန်ုပ်တို့၏ ဆရာ၊ ဆရာမများသည် အသိအမှတ်ပြု လက်မှတ်ရ ပညာရေးပညာရှင်များဖြစ်ကြပြီး ကျောင်းသားတစ်ဦးချင်းစီ၏ ထူးခြားသော ပါရမီနှင့် စွမ်းရည်များကို အလေးထား စင်တင်ပျိုးထောင်ပေးလျက်ရှိပါသည်။</p>
                 </div>
                 <div class="about-image">
-                    <img src="images/classroom.jpg" alt="Students in classroom" onerror="this.src='https://images.unsplash.com/photo-1581726707445-75cbe4efc586?q=80&w=1476&auto=format&fit=crop&w=600'">
+                    <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class02.jpg" alt="Students in classroom" onerror="this.src='https://images.unsplash.com/photo-1581726707445-75cbe4efc586?q=80&w=1476&auto=format&fit=crop&w=600'">
                 </div>
             </div>
         </section>
@@ -582,7 +640,7 @@
                 </div>
                 <div class="card">
                     <h3>၂။ အဆင့်သတ်မှတ်ချက် စစ်ဆေးခြင်း</h3>
-                    <p>ကျောင်းသား၏ လက်ရှိပညာရေးအဆင့်နှင့် အားသာချက်များကို သိရှိနိုင်ရန် လွတ်လပ်ပေါ့ပါးသော စစ်ဆေးမှုများ ပြုလုပ်ပါမည်။</p>
+                    <p>ကျောင်းသား၏ လက်ရှိပညာရေးအဆင့်နှင့် အားသာချက်များကို သိရှိနိုင်ရန် လွတ်လပ်ပေါ့ပါးသော စစ်ဆေးမှုများ ပြုလုပ်ပါမည်.</p>
                 </div>
                 <div class="card">
                     <h3>၃။ ကျောင်းဝင်ခွင့်လက်ခံခြင်း</h3>
@@ -654,25 +712,69 @@
             </div>
         </div>
 
-        <!-- Row 2: Up to 3 Photos Side-By-Side Grid Gallery -->
+        <!-- Row 2: Interactive Flashcard Grid (Uses your github files class01 - class09) -->
         <div class="image-grid">
-            <div class="gallery-item">
-                <img src="images/1.jpg" alt="Classroom Group Work" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400'">
+            
+            <!-- Flashcard Card Block 1: Classroom Group Work -->
+            <div class="gallery-item" id="fc-block-1">
+                <div class="flashcard-wrapper">
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class01.jpg" target="_blank" class="slide-link active">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class01.jpg" alt="Classroom 01">
+                    </a>
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class02.jpg" target="_blank" class="slide-link">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class02.jpg" alt="Classroom 02">
+                    </a>
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class03.jpg" target="_blank" class="slide-link">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class03.jpg" alt="Classroom 03">
+                    </a>
+                    
+                    <button class="card-nav prev" onclick="shiftFlashcard('fc-block-1', -1, event)">&#10094;</button>
+                    <button class="card-nav next" onclick="shiftFlashcard('fc-block-1', 1, event)">&#10095;</button>
+                </div>
                 <h3 class="media-title-en">Classroom Group Work</h3>
                 <h3 class="media-title-my" style="display: none;">စာသင်ခန်းတွင်း စုပေါင်းလှုပ်ရှားမှု</h3>
             </div>
 
-            <div class="gallery-item">
-                <img src="images/2.jpg" alt="Computer Lab" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?w=400'">
+            <!-- Flashcard Card Block 2: Computer Lab Session -->
+            <div class="gallery-item" id="fc-block-2">
+                <div class="flashcard-wrapper">
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class04.jpg" target="_blank" class="slide-link active">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class04.jpg" alt="Computer 04">
+                    </a>
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class05.jpg" target="_blank" class="slide-link">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class05.jpg" alt="Computer 05">
+                    </a>
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class06.jpg" target="_blank" class="slide-link">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class06.jpg" alt="Computer 06">
+                    </a>
+                    
+                    <button class="card-nav prev" onclick="shiftFlashcard('fc-block-2', -1, event)">&#10094;</button>
+                    <button class="card-nav next" onclick="shiftFlashcard('fc-block-2', 1, event)">&#10095;</button>
+                </div>
                 <h3 class="media-title-en">Computer Lab Session</h3>
                 <h3 class="media-title-my" style="display: none;">ကွန်ပျူတာလက်တွေ့လေ့လာချိန်</h3>
             </div>
 
-            <div class="gallery-item">
-                <img src="images/3.jpg" alt="Art Session" onerror="this.src='https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400'">
+            <!-- Flashcard Card Block 3: Creative Arts Session -->
+            <div class="gallery-item" id="fc-block-3">
+                <div class="flashcard-wrapper">
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class07.jpg" target="_blank" class="slide-link active">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class07.jpg" alt="Arts 07">
+                    </a>
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class08.jpg" target="_blank" class="slide-link">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class08.jpg" alt="Arts 08">
+                    </a>
+                    <a href="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class09.jpg" target="_blank" class="slide-link">
+                        <img src="https://raw.githubusercontent.com/heinthaw1991-nexus/Modern-School-Website/main/images/class09.jpg" alt="Arts 09">
+                    </a>
+                    
+                    <button class="card-nav prev" onclick="shiftFlashcard('fc-block-3', -1, event)">&#10094;</button>
+                    <button class="card-nav next" onclick="shiftFlashcard('fc-block-3', 1, event)">&#10095;</button>
+                </div>
                 <h3 class="media-title-en">Creative Arts Session</h3>
                 <h3 class="media-title-my" style="display: none;">ပန်းချီနှင့် တီထွင်ဖန်တီးမှုအချိန်</h3>
             </div>
+
         </div>
     </section>
 
@@ -717,7 +819,7 @@
                 <div>
                     <div class="info-item">
                         <strong>ကျောင်းတည်နေရာ</strong>
-                        <p>အမှတ် (၄၅۶)၊ ပြည်လမ်း၊ ကမာရွတ်မြို့နယ်၊ ရန်ကုန်မြို့၊ မြန်မာနိုင်ငံ။</p>
+                        <p>အမှတ် (၄၅၆)၊ ပြည်လမ်း၊ ကမာရွတ်မြို့နယ်၊ ရန်ကုန်မြို့၊ မြန်မာနိုင်ငံ။</p>
                     </div>
                     <div class="info-item">
                         <strong>ဖုန်းနံပါတ်များ</strong>
@@ -747,8 +849,38 @@
     </footer>
 
 
-    <!-- MONOLITHIC STRUCTURE SWITCHER SCRIPT -->
+    <!-- STRUCTURE SWITCHER & FLASHCARD ENGINE SCRIPT -->
     <script>
+        // Interactive Multi-Flashcard Logic
+        function shiftFlashcard(blockId, direction, event) {
+            // Stop the link from opening when navigation buttons are clicked
+            event.stopPropagation();
+            event.preventDefault();
+
+            const cardBlock = document.getElementById(blockId);
+            const slideLinks = cardBlock.querySelectorAll('.slide-link');
+            
+            let currentActiveIndex = 0;
+            
+            slideLinks.forEach((link, idx) => {
+                if(link.classList.contains('active')) {
+                    currentActiveIndex = idx;
+                }
+            });
+            
+            // Remove current view status
+            slideLinks[currentActiveIndex].classList.remove('active');
+            
+            // Target calculating loop boundary safe rules
+            let nextIndex = currentActiveIndex + direction;
+            if (nextIndex >= slideLinks.length) nextIndex = 0;
+            if (nextIndex < 0) nextIndex = slideLinks.length - 1;
+            
+            // Apply next view status
+            slideLinks[nextIndex].classList.add('active');
+        }
+
+        // Monolithic Language View Toggle Function
         function toggleLanguage(lang) {
             const contentEn = document.getElementById('content-en');
             const contentMy = document.getElementById('content-my');
